@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Someone Special</title>
+<title>Our Memories</title>
 
 <style>
 body {
@@ -13,10 +13,16 @@ body {
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
     overflow-x: hidden;
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 section {
-    padding: 60px 20px;
+    padding: 50px 20px;
 }
 
 video {
@@ -26,26 +32,44 @@ video {
     margin: 20px 0;
 }
 
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 3s ease;
+}
+
 #finalText {
-    font-size: 22px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
     line-height: 1.8;
     opacity: 0;
-    transition: opacity 2s ease;
+    transition: opacity 3s ease;
 }
 
 .show {
     opacity: 1 !important;
 }
 
-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 30px;
-    background: white;
-    color: black;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(0); opacity: 0.7; }
+    to { transform: translateY(-110vh); opacity: 0; }
 }
 </style>
 </head>
@@ -55,40 +79,72 @@ button {
 <section>
     <h2>Our Memories 🤍</h2>
 
-    <!-- First Video (21 seconds) -->
-    <video controls>
+    <video id="video1" controls>
         <source src="video1.mp4" type="video/mp4">
     </video>
 
-    <!-- Second Video (12 seconds) -->
-    <video controls>
+    <video id="video2" controls>
         <source src="video2.mp4" type="video/mp4">
     </video>
-
-    <button onclick="showMessage()">Click here</button>
 </section>
 
-<section>
-    <div id="finalText">
-        Some people leave the room,<br>
-        but never leave the heart.<br><br>
+<div id="overlay"></div>
 
-        บางคนอาจเดินออกจากห้องไป<br>
-        แต่จะไม่มีวันออกจากใจเรา<br><br>
+<div id="finalText">
+    Some people leave the room,<br>
+    but never leave the heart.<br><br>
 
-        You’ll always be part of us, UD.<br>
-        เธอจะเป็นส่วนหนึ่งของพวกเราตลอดไป, ยูดี
-    </div>
-</section>
+    บางคนอาจเดินออกไปจากห้องนี้<br>
+    แต่จะไม่มีวันออกไปจากใจเรา<br><br>
 
-<!-- Background Music -->
-<audio autoplay loop>
+    You’ll always be part of us.<br>
+    เธอจะเป็นส่วนหนึ่งของพวกเราตลอดไป 🤍
+</div>
+
+<audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function showMessage() {
-    document.getElementById("finalText").classList.add("show");
+const video2 = document.getElementById("video2");
+const overlay = document.getElementById("overlay");
+const finalText = document.getElementById("finalText");
+const music = document.getElementById("bgMusic");
+
+video2.onended = function() {
+
+    overlay.style.opacity = "1";
+
+    setTimeout(() => {
+        finalText.classList.add("show");
+        music.volume = 0;
+        music.play();
+
+        let fade = setInterval(() => {
+            if (music.volume < 1) {
+                music.volume += 0.05;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+
+        createHearts();
+
+    }, 3000);
+};
+
+function createHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.innerHTML = "🤍";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }, 800);
 }
 </script>
 
