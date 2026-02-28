@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 60px 20px;
+}
+
+video {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+#finalText {
+    font-size: 22px;
+    line-height: 1.8;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.show {
+    opacity: 1 !important;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<section>
+    <h2>Our Memories 🤍</h2>
+
+    <!-- First Video (21 seconds) -->
+    <video controls>
+        <source src="video1.mp4" type="video/mp4">
+    </video>
+
+    <!-- Second Video (12 seconds) -->
+    <video controls>
+        <source src="video2.mp4" type="video/mp4">
+    </video>
+
+    <button onclick="showMessage()">Click here</button>
+</section>
+
+<section>
+    <div id="finalText">
+        Some people leave the room,<br>
+        but never leave the heart.<br><br>
+
+        บางคนอาจเดินออกจากห้องไป<br>
+        แต่จะไม่มีวันออกจากใจเรา<br><br>
+
+        You’ll always be part of us, UD.<br>
+        เธอจะเป็นส่วนหนึ่งของพวกเราตลอดไป, ยูดี
+    </div>
+</section>
+
+<!-- Background Music -->
+<audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function showMessage() {
+    document.getElementById("finalText").classList.add("show");
+}
+</script>
+
+</body>
+</html>
